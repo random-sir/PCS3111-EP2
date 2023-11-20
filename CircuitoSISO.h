@@ -1,6 +1,7 @@
 #ifndef CIRCUITOSISO_H
 #define CIRCUITOSISO_H
 #include "Circuito.h"
+#include "Sinal.h"
 
 class CircuitoSISO: public Circuito{
 public:
