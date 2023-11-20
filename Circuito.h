@@ -3,7 +3,8 @@
 
 class Circuito(){
 protected:
-  
+  static int GlobalID;
+  int ID;
 public:
   Circuito();
   virtual ~Circuito();
