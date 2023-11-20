@@ -7,7 +7,7 @@ protected:
   int ID;
 public:
   Circuito();
-  virtual ~Circuito();
+  virtual ~Circuito() = 0;
   int getID();
   void imprimir();
   static int getUltimoID();
