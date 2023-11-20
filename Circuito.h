@@ -1,7 +1,7 @@
 #ifndef CIRCUITO_H
 #define CIRCUITO_H
 
-class Circuito(){
+class Circuito{
 protected:
   static int GlobalID;
   int ID;
