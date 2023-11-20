@@ -1,8 +1,9 @@
 #ifndef DERIVADOR_H
 #define DERIVADOR_H
 #include "Sinal.h"
+#include "CircuitoSISO.h"
 
-class Derivador{
+class Derivador: public CircuitoSISO{
 public:
     Derivador();
     virtual ~Derivador();
