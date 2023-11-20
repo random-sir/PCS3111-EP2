@@ -1,5 +1,5 @@
-#ifndef ""
-#define "CIRCUITO_H"
+#ifndef CIRCUITO_H
+#define CIRCUITO_H
 
 class Circuito(){
 protected:
