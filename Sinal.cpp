@@ -2,6 +2,7 @@
 #include "Grafico.h"
 #include <string>
 #include <stdexcept>
+#include <iostream>
 
 using namespace std;
 
