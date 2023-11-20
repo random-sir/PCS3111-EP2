@@ -1,6 +1,6 @@
 #include "Amplificador.h"
 
-Amplificador::Amplificador(double ganho) : ganho(ganho){
+Amplificador::Amplificador(double ganho) : CircuitoSISO(), ganho(ganho){
 }
 
 Amplificador::~Amplificador(){
