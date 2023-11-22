@@ -21,7 +21,7 @@ Sinal::Sinal(double constante, int comprimento){
     if(comprimento <= 0) throw new invalid_argument("Comprimento invalido");
     else{
         this->comprimento = comprimento;
-        this->sequencia = new const double[comprimento];
+        this->sequencia = new double[comprimento];
         for (int i=0;i<comprimento;i++){
             this->sequencia[i] = constante;
         }
