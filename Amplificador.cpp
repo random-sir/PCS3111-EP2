@@ -1,6 +1,7 @@
 #include "Amplificador.h"
 
-Amplificador::Amplificador(double ganho) : CircuitoSISO(), ganho(ganho){
+Amplificador::Amplificador(double ganho) : ganho(ganho){ //O construtor não precisa ser chamado explicitamente, pois não possui argumentos. 
+                                                         //Logo, o construtor chamado implicitamente(default) funciona.
 }
 
 Amplificador::~Amplificador(){
