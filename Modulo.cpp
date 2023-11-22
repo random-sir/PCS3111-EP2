@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Modulo::Modulo(): CircuitoSISO(){
+Modulo::Modulo(){
   circuitos = new list<CircuitoSISO*>();
 }
 
