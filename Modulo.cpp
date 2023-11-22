@@ -1,4 +1,5 @@
 #include "Modulo.h"
+#include "CircuitoSISO.h"
 #include <list>
 #include <iostream>
 
