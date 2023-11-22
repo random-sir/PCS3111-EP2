@@ -1,6 +1,6 @@
 #include "Derivador.h"
 
-Derivador::Derivador(): CircuitoSISO(){
+Derivador::Derivador(){
 }
 
 Derivador::~Derivador(){

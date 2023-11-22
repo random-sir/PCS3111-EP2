@@ -1,6 +1,6 @@
 #include "Somador.h"
 
-Somador::Somador():CircuitoMISO(){
+Somador::Somador(){
 }
 
 Somador::~Somador(){

@@ -1,6 +1,6 @@
 #include "Integrador.h"
 
-Integrador::Integrador(): CircuitoSISO(){
+Integrador::Integrador(){
 }
 
 Integrador::~Integrador(){
