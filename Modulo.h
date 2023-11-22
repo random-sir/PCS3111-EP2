@@ -5,7 +5,7 @@
 
 class Modulo: public CircuitoSISO{
   protected:
-    list<CircuitoSISO*>* circuitos;
+    std::list<CircuitoSISO*>* circuitos;
   public:
     Modulo();
     virtual ~Modulo();
