@@ -22,14 +22,10 @@ Sinal* ModuloEmSerie::processar(Sinal* sinalIN){
     circ = dynamic_cast<CircuitoSISO*>(*i);
     if(circ != NULL){
       temCircSISO = true; 
-      //evitando o overleak
-      Sinal* sinalInterm = (*i)->processar(sinalPrinc);
-      delete sinalPrinc;
-      Sinal* sinalPrinc = sinalInterm;
-      delete sinalInterm;
+      sinalPrinc = (*i)->processar(sinalPrinc);
     }
   }
 }
-  if(!temCircSISO) throw logic_error("Nao ha circuitos SISO");
+  if(!temCircSISO) throw new logic_error("Nao ha circuitos SISO");
   return sinalPrinc;
 }
