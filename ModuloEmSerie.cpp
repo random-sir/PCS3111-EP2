@@ -8,6 +8,6 @@ ModuloEmSerie::~ModuloEmSerie(){
   
 }
 
-ModuloEmSerie::processar(){
+Sinal* ModuloEmSerie::processar(){
   
 }
