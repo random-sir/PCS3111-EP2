@@ -1,4 +1,4 @@
-$ifndef MODULOEMPARALELO_H
+#ifndef MODULOEMPARALELO_H
 #define MODULOEMPARALELO_H
 #include "Modulo.h"
 
