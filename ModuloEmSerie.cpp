@@ -10,4 +10,5 @@ ModuloEmSerie::~ModuloEmSerie(){
 
 Sinal* ModuloEmSerie::processar(){
   
+  if()
 }
