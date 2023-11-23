@@ -1,5 +1,6 @@
 #include "ModuloEmParalelo.h"
 #include "Somador.h"
+#include <iostream>
 #include <list>
 
 using namespace std;
