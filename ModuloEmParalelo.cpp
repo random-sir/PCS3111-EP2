@@ -14,14 +14,19 @@ ModuloEmParalelo::~ModuloEmParalelo(){
 }
 
 Sinal* ModuloEmParalelo::processar(Sinal* sinalIN){
-  Somador* sum = new Somador();
   bool temCircSISO = false; //indicador de passagem. Utilizaremos a ideia de supor que não há circSISO 
                             //nos "circuitos" e, se ao final do laço o indicador continuar como falso ent significa
                             //que não há nenhum circSISO
+  
+  //criando um sinal nulo
+  double seq[60];
+  for(int i = 0; i < 60; i++) seq[i] = 0;
+  Sinal* sinalSomado = new Sinal(seq, 60);
+
+  //inicializações
+  Somador* sum = new Somador();
   CircuitoSISO* circ = nullptr;
-  Sinal* sinalSomado = nullptr;
-  list<CircuitosSISO*>::iterator i;
-  for(i = circuitos->begin(); i != circuitos->end(); i++){
+  for(list<CircuitosSISO*>::iterator i = circuitos->begin(); i != circuitos->end(); i++){
     circ = dynamic_cast<CircuitoSISO*>(*i);
     if(circ != NULL){
       temCircSISO = true; 
