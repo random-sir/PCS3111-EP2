@@ -12,6 +12,14 @@ ModuloRealimentado::~ModuloRealimentado(){
     delete moduloEmSerie_ModuloRealimentado;
 }
 
+void ModuloRealimentado::adicionar(CircuitoSISO* circ){
+    moduloEmSerie_ModuloRealimentado->adicionar(circ);
+}
+
+std::list<CircuitoSISO*>* ModuloRealimentado::getCircuitos(){
+    return moduloEmSerie_ModuloRealimentado->getCircuitos();
+}
+
 Sinal *ModuloRealimentado::processar(Sinal *sinalIN){
     //inicializacao
     const double velocidadeInicial = 0;
@@ -23,7 +31,7 @@ Sinal *ModuloRealimentado::processar(Sinal *sinalIN){
     //primeira iteracao
     sequenciaSaidaInvertida[0] = velocidadeInicial * (-1);
     diferenca = new Sinal(sinalIN->getSequencia(), 1);
-    saida = pilotoModuloRealimentado->processar(diferenca);
+    saida = moduloEmSerie_ModuloRealimentado->processar(diferenca);
     delete diferenca;
 
     //iteracoes subsequentes
@@ -32,7 +40,7 @@ Sinal *ModuloRealimentado::processar(Sinal *sinalIN){
         saidaInvertida = new Sinal(sequenciaSaidaInvertida, i+1); 
         diferenca = somadorModuloRealimentado->processar(saidaInvertida, sinalIN);
         delete saida;
-        saida = pilotoModuloRealimentado->processar(diferenca);
+        saida = moduloEmSerie_ModuloRealimentado->processar(diferenca);
         delete saidaInvertida;
         delete diferenca;
     }
