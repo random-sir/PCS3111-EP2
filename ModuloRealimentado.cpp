@@ -3,7 +3,7 @@
 ModuloRealimentado::ModuloRealimentado(){
     somadorModuloRealimentado = new Somador();
     inversorModuloRealimentado = new Amplificador(-1);
-    moduloEmSerie_ModuloRealimentado = new ModuloEmSerie();;
+    moduloEmSerie_ModuloRealimentado = new ModuloEmSerie();
 }
 
 ModuloRealimentado::~ModuloRealimentado(){
