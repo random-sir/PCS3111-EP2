@@ -6,7 +6,7 @@ class ModuloEmSerie: public Modulo{
   public:
     ModuloEmSerie();
     virtual ~ModuloEmSerie();
-    Sinal* processar(*sinalIN);
+    Sinal* processar(Sinal *sinalIN);
 };
 
 #endif
