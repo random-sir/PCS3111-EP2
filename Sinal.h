@@ -7,7 +7,6 @@ class Sinal{
 private:
     double *sequencia;
     int comprimento;
-
 public:
     Sinal(double *sequencia, int comprimento);
     Sinal(double constante, int comprimento);
