@@ -9,7 +9,7 @@ ModuloRealimentado::ModuloRealimentado(){
 ModuloRealimentado::~ModuloRealimentado(){
     delete somadorModuloRealimentado;
     delete inversorModuloRealimentado;
-    delete pilotoModuloRealimentado;
+    delete moduloEmSerie_ModuloRealimentado;
 }
 
 Sinal *ModuloRealimentado::processar(Sinal *sinalIN){
