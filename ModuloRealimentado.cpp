@@ -1,9 +1,9 @@
 #include "ModuloRealimentado.h"
 
-ModuloRealimentado::ModuloRealimentado(double ganho){
+ModuloRealimentado::ModuloRealimentado(){
     somadorModuloRealimentado = new Somador();
     inversorModuloRealimentado = new Amplificador(-1);
-    pilotoModuloRealimentado = new Piloto(ganho);
+    moduloEmSerie_ModuloRealimentado = new ModuloEmSerie();;
 }
 
 ModuloRealimentado::~ModuloRealimentado(){
