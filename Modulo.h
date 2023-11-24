@@ -9,8 +9,8 @@ class Modulo: public CircuitoSISO{
   public:
     Modulo();
     virtual ~Modulo();
-    void adicionar(CircuitoSISO* circ);
-    std::list<CircuitoSISO*>* getCircuitos();
+    virtual void adicionar(CircuitoSISO* circ);
+    virtual std::list<CircuitoSISO*>* getCircuitos();
 };
 
 #endif
