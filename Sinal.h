@@ -2,8 +2,8 @@
 #define SINAL_H
 #include <string>
 using namespace std;
-class Sinal
-{
+
+class Sinal{
 private:
     double *sequencia;
     int comprimento;
