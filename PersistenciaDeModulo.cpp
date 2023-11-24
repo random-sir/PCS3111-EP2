@@ -1,17 +1,32 @@
 #include "PersistenciaDeModulo.h"
 
-PersistenciaDeModulo(string nomeDoArquivo){
+PersistenciaDeModulo::PersistenciaDeModulo(string nomeDoArquivo){
   this->nomeDoArquivo = nomeDoArquivo; 
 }
 
-virtual ~PersistenciaDeModulo(){
+PersistenciaDeModulo::~PersistenciaDeModulo(){
   
 }
 
-void salvarEmArquivo(Modulo* mod){
+void PersistenciaDeModulo::salvarEmArquivo(Modulo* mod){
+  ofstream output;
+  ouput.open(nomeDoArquivo);
+
+  if(output.fail()){
+    cout << "Arquivo nao encontrado" << endl;
+    entrada.close();
+    return
+  }
+
+  CircuitoSISO* circ = nullptr;
+  for(list<CircuitosSISO*>::iterador i = mod->getCircuitos->begin(); i != mod->getCircuitos->end(); i++){
+    circ = dynamic_cast<c>(*i);
+    if(dynamic_cast<c>(*i))
+    
+  }
   
 }
 
-Modulo* lerDeArquivo(){
+Modulo* PersistenciaDeModulo::lerDeArquivo(){
   
 }
