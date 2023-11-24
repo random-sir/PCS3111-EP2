@@ -9,10 +9,9 @@
 
 class ModuloRealimentado: public Modulo{
 private:
-    //MRa = ModuloRealimentado
-    Somador *somadorMRa;
-    Amplificador *inversorMRa;
-    ModuloEmSerie *moduloEmSerieMRa;
+    Somador *somadorModuloRealimentado;
+    Amplificador *inversorModuloRealimentado;
+    ModuloEmSerie *moduloEmSerie_ModuloRealimentado;
 public:
     ModuloRealimentado();
     virtual ~ModuloRealimentado();
