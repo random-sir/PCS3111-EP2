@@ -7,6 +7,8 @@
 using namespace std;
 
 class PersistenciaDeModulo{
+private:
+  string nomeDoArquivo;
 public:
   PersistenciaDeModulo(string nomeDoArquivo);
   virtual ~PersistenciaDeModulo();
