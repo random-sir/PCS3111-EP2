@@ -2,6 +2,7 @@
 #define PERSISTENCIADEMODULO_H
 #include "Modulo.h"
 #include <string>
+#include <fstream>
 
 using namespace std;
 
