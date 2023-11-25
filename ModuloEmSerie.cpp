@@ -1,7 +1,4 @@
 #include "ModuloEmSerie.h"
-#include <iostream>
-
-using namespace std;
 
 ModuloEmSerie::ModuloEmSerie(){
 }
@@ -11,9 +8,8 @@ ModuloEmSerie::~ModuloEmSerie(){
 
 Sinal* ModuloEmSerie::processar(Sinal* sinalIN){
   bool temCircSISO = false; //indicador de passagem. Utilizaremos a ideia de supor que não há circSISO 
-                            //nos "circuitos" e, se ao final do laço o indicador continuar como falso ent significa
-                            //que não há nenhum circSISO
-  
+                            //nos "circuitos" e, se ao final do laço o indicador continuar como falso 
+                            //ent significa que não há nenhum circSISO
   CircuitoSISO* circ = nullptr;
   Sinal* sinalPrinc = sinalIN;
   for(list<CircuitosSISO*>::iterator i = circuitos->begin(); i != circuitos->end(); i++){
