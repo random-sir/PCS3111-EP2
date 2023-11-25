@@ -1,5 +1,6 @@
 #ifndef MODULOEMSERIE_H
 #define MODULOEMSERIE_H
+#include "Sinal.h"
 #include "Modulo.h"
 
 class ModuloEmSerie: public Modulo{
