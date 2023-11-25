@@ -1,7 +1,4 @@
 #include "Circuito.h"
-#include <iostream>
-
-using namespace std;
 
 int Circuito::GlobalID = 0; //atributo estático
 
