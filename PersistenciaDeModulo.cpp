@@ -61,7 +61,8 @@ CircuitoSISO* tipoDeCircuitoSISO_CircSISO(string letraCirc, ifstream& arquivo){ 
   //No caso do amplificador, faço uma leitura a mais do arquivo para coletar o ganho
   if(letraCirc == "A"){
     string ganho;
-    getline(arquivo, ganho, ' ');
+    arquivo >> ganho;
+    //getline(arquivo, ganho, ' ');
     return new Amplificador(static_cast<double>(ganho));
   }else if(letraCirc == "D") return new Derivador();
   else if(letraCirc == "I") return new Integrador();
@@ -90,7 +91,8 @@ void leituraModulo(Modulo* mod, ifstream& arquivo){ //terminada
   //porque ele permite estabelecer um break mark de forma bem fácil
   string letraCirc;
   while(arquivo){ //enquanto arquivo.fail() nao eh false
-    getline(arquivo, letraCirc, ' ');
+    arquivo >> ganho;
+    //getline(arquivo, letraCirc, ' ');
     if(!arquivo.eof()) throw new logic_error("Arquivo com formatacao inesperada"); //controle de erro necessário conforme dito no enunciado do EP
     if(letraCirc == "P" || letraCirc == "S" || letraCirc == "R"){
       Modulo* moduloInterno = tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo);
