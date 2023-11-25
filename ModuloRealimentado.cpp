@@ -16,7 +16,7 @@ void ModuloRealimentado::adicionar(CircuitoSISO* circ){
     moduloEmSerie_ModuloRealimentado->adicionar(circ);
 }
 
-std::list<CircuitoSISO*>* ModuloRealimentado::getCircuitos(){
+list<CircuitoSISO*>* ModuloRealimentado::getCircuitos(){
     return moduloEmSerie_ModuloRealimentado->getCircuitos();
 }
 
