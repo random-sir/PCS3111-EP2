@@ -2,15 +2,18 @@
 #define MODULO_H
 #include "CircuitoSISO.h"
 #include <list>
+#include <iostream>
+
+using namespace std;
 
 class Modulo: public CircuitoSISO{
   protected:
-    std::list<CircuitoSISO*>* circuitos;
+    list<CircuitoSISO*>* circuitos;
   public:
     Modulo();
     virtual ~Modulo();
     virtual void adicionar(CircuitoSISO* circ);
-    virtual std::list<CircuitoSISO*>* getCircuitos();
+    virtual list<CircuitoSISO*>* getCircuitos();
 };
 
 #endif
