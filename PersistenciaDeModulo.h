@@ -1,8 +1,18 @@
 #ifndef PERSISTENCIADEMODULO_H
 #define PERSISTENCIADEMODULO_H
+#include "CircuitoSISO.h"
 #include "Modulo.h"
-#include <string>
+#include "ModuloEmSerie.h"
+#include "ModuloEmParalelo.h"
+#include "Derivador.h"
+#include "Integrador.h"
+#include "Amplificador.h"
+#include "Somador.h"
+#include <iostream>
 #include <fstream>
+#include <string>
+#include <stdexcept>
+#include <list>
 
 using namespace std;
 
