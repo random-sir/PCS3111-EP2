@@ -3,7 +3,7 @@
 string tipoDeCircuitoSISO_STR(CircuitoSISO* circ);
 CircuitoSISO* tipoDeCircuitoSISO_CircSISO(string letraCirc, ifstream& arquivo);
 void escreverModulo(Modulo* modulo, ofstream& arquivo);
-void leituraModulo(Modulo* mod, ifstream& arquivo);
+void leituraModulo(Modulo* modulo, ifstream& arquivo);
 
 PersistenciaDeModulo::PersistenciaDeModulo(string nomeDoArquivo){
   this->nomeDoArquivo = nomeDoArquivo; 
@@ -85,7 +85,7 @@ void escreverModulo(Modulo* modulo, ofstream& arquivo){ //concluida, falta revis
   arquivo << "f" << endl;
 }
 
-void leituraModulo(Modulo* mod, ifstream& arquivo){ //terminada
+void leituraModulo(Modulo* modulo, ifstream& arquivo){ //terminada
   //cria o módulo descrito no arquivo
   //utilizei o getline para fazer a leitura no arquivo (vimos o getline em aula, então podemos utilizar)
   //porque ele permite estabelecer um break mark de forma bem fácil
@@ -96,11 +96,11 @@ void leituraModulo(Modulo* mod, ifstream& arquivo){ //terminada
     if(!arquivo.eof()) throw new logic_error("Arquivo com formatacao inesperada"); //controle de erro necessário conforme dito no enunciado do EP
     if(letraCirc == "P" || letraCirc == "S" || letraCirc == "R"){
       Modulo* moduloInterno = tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo);
-      mod->getCircuitos()->adicionar(moduloInterno);
+      modulo->getCircuitos()->adicionar(moduloInterno);
       while(letraCirc != "f")
         leituraModulo(moduloInterno, arquivo);
     }else
-      mod->getCircuitos()->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
+      modulo->getCircuitos()->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
   }
 }
 
