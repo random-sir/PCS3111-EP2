@@ -9,7 +9,7 @@ Modulo::~Modulo(){
 }
 
 void Modulo::adicionar(CircuitoSISO* circ){
-  circuitos->puch_back(circ);  
+  circuitos->push_back(circ);  
 }
 
 list<CircuitoSISO*>* Modulo::getCircuitos(){
@@ -17,10 +17,10 @@ list<CircuitoSISO*>* Modulo::getCircuitos(){
 }
 
 void Modulo::imprimir(){
-  cout << "Modulo com ID " << Modulo->getUltimoID() << " e:" << endl;
+  cout << "Modulo com ID " << this->getUltimoID() << " e:" << endl;
   list<CircuitoSISO*>::iterator i = circuitos->begin();
   while(i != circuitos->end()){
-    cout << "Circuito com ID " << (*i)->getID() << endl;
+    (*i)->imprimir();
     i++;
   }
 }
