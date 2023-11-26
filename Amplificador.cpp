@@ -1,6 +1,6 @@
 #include "Amplificador.h"
 
-Amplificador::Amplificador(double ganho) : ganho(ganho){ //O construtor nao precisa ser chamado explicitamente, pois nao possui argumentos. 
+Amplificador::Amplificador(double ganho) : ganho(ganho){ //O construtor da classe base nao precisa ser chamado explicitamente, pois nao possui argumentos. 
                                                          //Logo, o construtor chamado implicitamente(default) funciona.
 }
 
