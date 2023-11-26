@@ -1,9 +1,9 @@
 #include "Circuito.h"
 
-int Circuito::GlobalID = 0; //atributo estático
+int Circuito::GlobalID = 0; //atributo estático //Começa do zero, pois a variavel será incrementada antes de ser atribuida.
 
 Circuito::Circuito(){
-  this->ID = ++Circuito::GlobalID;
+  this->ID = ++Circuito::GlobalID; // ++Circuito::GlobalID; indica que a variavel será incrementada antes de ser atribuida a ID.
 }
 
 Circuito::~Circuito(){
@@ -18,5 +18,5 @@ void Circuito::imprimir(){
 }
 
 int Circuito::getUltimoID(){
-  return Circuito::GlobalID;
+  return Circuito::GlobalID; //retornará 0, se nenhum circuito tiver sido criado ainda.
 }
