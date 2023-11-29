@@ -12,7 +12,7 @@ Sinal* ModuloEmSerie::processar(Sinal* sinalIN){
                             //ent significa que não há nenhum circSISO
   CircuitoSISO* circ = nullptr;
   Sinal* sinalPrinc = sinalIN;
-  for(list<CircuitosSISO*>::iterator i = circuitos->begin(); i != circuitos->end(); i++){
+  for(list<CircuitoSISO*>::iterator i = circuitos->begin(); i != circuitos->end(); i++){
     circ = dynamic_cast<CircuitoSISO*>(*i);
     if(circ != NULL){
       temCircSISO = true; 
