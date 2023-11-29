@@ -24,6 +24,6 @@ public:
   virtual ~PersistenciaDeModulo();
   void salvarEmArquivo(Modulo* mod);
   Modulo* lerDeArquivo();
-}
+};
 
 #endif
