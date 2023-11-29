@@ -21,7 +21,7 @@ Sinal* ModuloEmParalelo::processar(Sinal* sinalIN){
   //inicializações
   Somador* sum = new Somador();
   CircuitoSISO* circ = nullptr;
-  for(list<CircuitosSISO*>::iterator i = circuitos->begin(); i != circuitos->end(); i++){
+  for(list<CircuitoSISO*>::iterator i = circuitos->begin(); i != circuitos->end(); i++){
     circ = dynamic_cast<CircuitoSISO*>(*i);
     if(circ != NULL){
       temCircSISO = true; 
