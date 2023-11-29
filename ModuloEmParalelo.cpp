@@ -14,21 +14,29 @@ Sinal* ModuloEmParalelo::processar(Sinal* sinalIN){
                             //que não há nenhum circSISO
   
   //criando um sinal nulo
-  double seq[60];
-  for(int i = 0; i < 60; i++) seq[i] = 0;
-  Sinal* sinalSomado = new Sinal(seq, 60);
-
+  Sinal* sinalSomado = new Sinal(0.0, sinalIN->getComprimento());
+  
   //inicializações
   Somador* sum = new Somador();
   CircuitoSISO* circ = nullptr;
+  Sinal* sinalProcessado = nullptr;
+  Sinal* sinalSomadoTotal = sinalSomado;
   for(list<CircuitoSISO*>::iterator i = circuitos->begin(); i != circuitos->end(); i++){
     circ = dynamic_cast<CircuitoSISO*>(*i);
     if(circ != NULL){
-      temCircSISO = true; 
-      sinalSomado = sum->processar(sinalSomado, (*i)->processar(sinalIN));
+      temCircSISO = true;
+      sinalProcessado = (*i)->processar(sinalIN);
+      sinalSomado = sinalSomadoTotal;
+      sinalSomadoTotal = sum->processar(sinalSomado, sinalProcessado);
+      delete sinalSomado;
+      delete sinalProcessado;
     }
   }
-  if(!temCircSISO) throw new logic_error("Nao ha circuitos SISO");
   delete sum;
-  return sinalSomado;
+  delete sinalSomado;
+  if(!temCircSISO){
+     throw new logic_error("Nao ha circuitos SISO");
+     return sinalIN; //failsafe de lista sem circuitosSISO, falha nao catastroficamente
+  }
+  return sinalSomadoTotal;
 }
