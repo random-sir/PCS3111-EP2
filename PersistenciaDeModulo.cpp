@@ -59,15 +59,13 @@ string tipoDeCircuitoSISO_STR(CircuitoSISO* circ){ //falta revisar
   //recebe um circuito e retorna a letra correspondente segundo a descrição do enunciado do EP
   //Para descobrir qual era o tipo do circuito utilizei o cast dinâmico
   if(dynamic_cast<Derivador*>(circ) != NULL) return "D";
-  else if(dynamic_cast<Amplificador*>(circ) != NULL) return "A";
-  else if(dynamic_cast<Integrador*>(circ) != NULL) return "I";
-  else if(dynamic_cast<ModuloEmParalelo*>(circ) != NULL) return "P";
-  else if(dynamic_cast<ModuloEmSerie*>(circ) != NULL) return "S";
-  else if(dynamic_cast<ModuloRealimentado*>(circ) != NULL) return "R";
-  else{ //necessario?
-    throw new invalid_argument("Nao eh um circuito SISO");
-    return "ERRO";
-  }
+  if(dynamic_cast<Amplificador*>(circ) != NULL) return "A";
+  if(dynamic_cast<Integrador*>(circ) != NULL) return "I";
+  if(dynamic_cast<ModuloEmParalelo*>(circ) != NULL) return "P";
+  if(dynamic_cast<ModuloEmSerie*>(circ) != NULL) return "S";
+  if(dynamic_cast<ModuloRealimentado*>(circ) != NULL) return "R";
+  throw new invalid_argument("Nao eh um circuito SISO");
+  return "ERRO";
 }
 
 CircuitoSISO* tipoDeCircuitoSISO_CircSISO(string letraCirc, ifstream& arquivo){ //falta revisar
@@ -76,13 +74,15 @@ CircuitoSISO* tipoDeCircuitoSISO_CircSISO(string letraCirc, ifstream& arquivo){ 
   if(letraCirc == "A"){
     double ganho;
     arquivo >> ganho;
-    //getline(arquivo, ganho, ' ');
     return new Amplificador(ganho);
-  }else if(letraCirc == "D") return new Derivador();
-  else if(letraCirc == "I") return new Integrador();
-  else if(letraCirc == "P") return new ModuloEmParalelo();
-  else if(letraCirc == "S") return new ModuloEmSerie();
-  else if(letraCirc == "R") return new ModuloRealimentado();
+  } 
+  if(letraCirc == "D") return new Derivador();
+  if(letraCirc == "I") return new Integrador();
+  if(letraCirc == "P") return new ModuloEmParalelo();
+  if(letraCirc == "S") return new ModuloEmSerie();
+  if(letraCirc == "R") return new ModuloRealimentado();
+  throw new logic_error("Arquivo com formatacao inesperada");
+  return nullptr;
 }
 
 void escreverModulo(Modulo* modulo, ofstream& arquivo){ //concluida, falta revisar
@@ -101,15 +101,12 @@ void escreverModulo(Modulo* modulo, ofstream& arquivo){ //concluida, falta revis
 
 void leituraModulo(Modulo* modulo, ifstream& arquivo){ //terminada
   //cria o módulo descrito no arquivo
-  //utilizei o getline para fazer a leitura no arquivo (vimos o getline em aula, então podemos utilizar)
-  //porque ele permite estabelecer um break mark de forma bem fácil
   string letraCirc;
   while(arquivo){ //enquanto arquivo.fail() nao eh false
-    arquivo >> ganho;
-    //getline(arquivo, letraCirc, ' ');
+    arquivo >> letraCirc;
     if(!arquivo.eof()) throw new logic_error("Arquivo com formatacao inesperada"); //controle de erro necessário conforme dito no enunciado do EP
     if(letraCirc == "P" || letraCirc == "S" || letraCirc == "R"){
-      Modulo* moduloInterno = tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo);
+      Modulo* moduloInterno = static_cast<Modulo*>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
       modulo->getCircuitos()->adicionar(moduloInterno);
       while(letraCirc != "f")
         leituraModulo(moduloInterno, arquivo);
