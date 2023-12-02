@@ -162,5 +162,6 @@ Sinal* novaOperacao(Sinal *sinalIN, Modulo *modulo) {
     cout << endl;
     if (opcao == 1)
         sinalOUT = novaOperacao(sinalOUT, modulo); //Solucao recursiva
+        return sinalOUT;
     else return sinalOUT;
 }
