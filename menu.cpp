@@ -15,32 +15,66 @@ void novaOperacao(Sinal *sinalIN);
 
 void menu(){
     /*implementacao da interface*/
+    //ATENÇÃO, EM TODAS AS PARTES DESSE CÓDIGO REAPROVEITEI A VARIÁVEL OPÇÃO PARA GUARDAR OS DIFERENTES INPUTS DO USUÁRIO
     int opcao;
     Sinal *sinalIN;
     cout << "\tSimulink em C++"                      << endl
          << "Qual simulacao voce gostaria de fazer?" << endl
-         << "1) Piloto Automatico"                   << endl
+         << "1) Circuito advindo de arquivo"         << endl
          << "2) Sua propria sequencia de operacoes"  << endl
          << "Escolha: ";
     cin >> opcao;
     cout << endl;
     sinalIN = novoSinal();
     
+    string nomeDoArquivo;
     if (opcao == 1){
-        double ganho;
-        cout << "Qual o ganho do acelerador?" << endl
-             << "g = ";
-        cin >> ganho;
+        // double ganho;
+        // cout << "Qual o ganho do acelerador?" << endl
+        //      << "g = ";
+        // cin >> ganho;
+        // cout << endl;
+        // ModuloRealimentado *pilotoAutomatico = new ModuloRealimentado(ganho);
+        // Sinal *sinalOUT = pilotoAutomatico->processar(sinalIN);
+        // Grafico *grafico = new Grafico("Velocidade do Carro", sinalOUT->getSequencia(), sinalOUT->getComprimento());
+        // grafico->plot();
+        // delete sinalIN;
+        // delete pilotoAutomatico;
+        // delete grafico;
+        // delete sinalOUT;
+        cout << "Qual o nome do arquivo a ser lido?" << endl
+             << "Nome: ";
+        cin >> nomeDoArquivo;
         cout << endl;
-        ModuloRealimentado *pilotoAutomatico = new ModuloRealimentado(ganho);
-        Sinal *sinalOUT = pilotoAutomatico->processar(sinalIN);
-        Grafico *grafico = new Grafico("Velocidade do Carro", sinalOUT->getSequencia(), sinalOUT->getComprimento());
-        grafico->plot();
-        delete sinalIN;
-        delete pilotoAutomatico;
-        delete grafico;
-        delete sinalOUT;
-    }else novaOperacao(sinalIN);
+    }else{
+        cout << "Qual estrutura de operacoes voce deseja ter como base?" << endl
+             << "1) Operacoes em serie nao realimentadas"                << endl
+             << "2) Operacoes em paralelo nao realimentadas"             << endl
+             << "3) Operacoes em serie realimentadas"                    << endl
+             << "Escolha: ";
+        cin >> opcao;
+        cout << endl;
+        novaOperacao(sinalIN);
+    }
+    
+    Grafico *grafico = new Grafico("Resultado Final", sinalOUT->getSequencia(), sinalOUT->getComprimento());
+    grafico->plot();
+    delete grafico;
+    delete sinalOUT;
+
+    cout << "Voce gostaria de salvar o circuito em um novo arquivo?" << endl
+         << "1) Sim" << endl
+         << "2) Nao" << endl
+         << "Escolha: ";
+    cin >> opcao;
+    cout << endl;
+
+    if(opcao == 1){
+        cout << "Qual o nome do arquivo a ser escrito?" << endl
+             << "Nome: ";
+        cin >> nomeDoArquivo;
+        cout << endl;
+    }
 }
 
 Sinal* novoSinal(){
@@ -54,18 +88,20 @@ Sinal* novoSinal(){
          << "Escolha: ";
     cin >> opcao;
     cout << endl;
-    
-    if (opcao == 1){
-        for (int n = 0; n < tamanhoMaximo; n++) 
-            sequencia[n] = 5 + 3 * cos(n * (M_PI / 8));
-    } else if (opcao == 2){
+
+    if (opcao == 2){
         double constante;
         cout << "Qual o valor dessa constante?" << endl 
              << "C = ";
         cin >> constante;
         cout << endl;
-        for (int n = 0; n < tamanhoMaximo; n++)
-            sequencia[n] = constante;
+        Sinal *sinalOUT = new Sinal(constante, tamanhoMaximo);
+        return sinalOUT;
+    }
+
+    if (opcao == 1){
+        for (int n = 0; n < tamanhoMaximo; n++) 
+            sequencia[n] = 5 + 3 * cos(n * (M_PI / 8));
     } else{
         double inclinacao;
         cout << "Qual a inclinacao dessa rampa?" << endl
@@ -77,6 +113,30 @@ Sinal* novoSinal(){
     }
     Sinal *sinalOUT = new Sinal(sequencia, tamanhoMaximo);
     return sinalOUT;
+    
+    
+    // if (opcao == 1){
+    //     for (int n = 0; n < tamanhoMaximo; n++) 
+    //         sequencia[n] = 5 + 3 * cos(n * (M_PI / 8));
+    // } else if (opcao == 2){
+    //     double constante;
+    //     cout << "Qual o valor dessa constante?" << endl 
+    //          << "C = ";
+    //     cin >> constante;
+    //     cout << endl;
+    //     Sinal *sinalOUT = new Sinal(constante, tamanhoMaximo);
+    //     return sinalOUT;
+    // } else{
+    //     double inclinacao;
+    //     cout << "Qual a inclinacao dessa rampa?" << endl
+    //          << "a = ";
+    //     cin >> inclinacao;
+    //     cout << endl;
+    //     for (int n = 0; n < tamanhoMaximo; n++)
+    //         sequencia[n] = inclinacao * n;
+    // }
+    // Sinal *sinalOUT = new Sinal(sequencia, tamanhoMaximo);
+    // return sinalOUT;
 }
 
 void novaOperacao(Sinal *sinalIN) {
@@ -84,9 +144,8 @@ void novaOperacao(Sinal *sinalIN) {
     Sinal *sinalOUT = nullptr;
     cout << "Qual operacao voce gostaria de fazer?" << endl
          << "1) Amplificar"                         << endl
-         << "2) Somar"                              << endl
-         << "3) Derivar"                            << endl
-         << "4) Integrar"                           << endl
+         << "2) Derivar"                            << endl
+         << "3) Integrar"                           << endl
          << "Escolha: ";
     cin >> opcao;
     cout << endl;
@@ -102,13 +161,6 @@ void novaOperacao(Sinal *sinalIN) {
         delete sinalIN;
         delete amplificadorOperacao;
     } else if (opcao == 2){
-        Somador *somadorOperacao = new Somador();
-        cout << "Informe mais um sinal para ser somado." << endl;
-        Sinal *sinalSomado = novoSinal();
-        sinalOUT = somadorOperacao->processar(sinalIN, sinalSomado); 
-        delete sinalIN;
-        delete somadorOperacao;
-    } else if (opcao == 3){
         Derivador *derivadorOperacao = new Derivador();
         sinalOUT = derivadorOperacao->processar(sinalIN); 
         delete sinalIN;
@@ -122,16 +174,16 @@ void novaOperacao(Sinal *sinalIN) {
     
     cout << "O que voce quer fazer agora?"               << endl
          << "1) Realizar mais uma operacao no resultado" << endl
-         << "2) Imprimir o resultado para terminar"      << endl
+         << "2) Imprimir o resultado"                    << endl
          << "Escolha: ";
     cin >> opcao;
     cout << endl;
     if (opcao == 1){
         novaOperacao(sinalOUT); //Solucao recursiva
     } else{
-        Grafico *grafico = new Grafico("Resultado Final", sinalOUT->getSequencia(), sinalOUT->getComprimento());
-        grafico->plot();
-        delete grafico;
-        delete sinalOUT;
+        // Grafico *grafico = new Grafico("Resultado Final", sinalOUT->getSequencia(), sinalOUT->getComprimento());
+        // grafico->plot();
+        // delete grafico;
+        // delete sinalOUT;
     }
 }
