@@ -14,7 +14,7 @@
 using namespace std;
 
 Sinal* novoSinal();
-void novaOperacao(Sinal *sinalIN, string opcaoExt);
+Sinal* novaOperacao(Sinal *sinalIN,  Modulo *modulo);
 
 void menu(){
     /*implementacao da interface*/
@@ -30,30 +30,18 @@ void menu(){
     cout << endl;
     sinalIN = novoSinal();
     
+    Sinal *sinalOUT;
     string nomeDoArquivo;
     if (opcao == 1){
-        // double ganho;
-        // cout << "Qual o ganho do acelerador?" << endl
-        //      << "g = ";
-        // cin >> ganho;
-        // cout << endl;
-        // ModuloRealimentado *pilotoAutomatico = new ModuloRealimentado(ganho);
-        // Sinal *sinalOUT = pilotoAutomatico->processar(sinalIN);
-        // Grafico *grafico = new Grafico("Velocidade do Carro", sinalOUT->getSequencia(), sinalOUT->getComprimento());
-        // grafico->plot();
-        // delete sinalIN;
-        // delete pilotoAutomatico;
-        // delete grafico;
-        // delete sinalOUT;
         cout << "Qual o nome do arquivo a ser lido?" << endl
              << "Nome: ";
         cin >> nomeDoArquivo;
         cout << endl;
         PersistenciaDeModulo *PDM = new PersistenciaDeModulo(nomeDoArquivo);
         Modulo *modulo = PDM->lerDeArquivo();
-        Sinal *sinalOUT = modulo->processar(sinalIN);
+        sinalOUT = modulo->processar(sinalIN);
         delete sinalIN;
-        delete modulo;
+        delete PDM;
     }else{
         cout << "Qual estrutura de operacoes voce deseja ter como base?" << endl
              << "1) Operacoes em serie nao realimentadas"                << endl
@@ -62,7 +50,13 @@ void menu(){
              << "Escolha: ";
         cin >> opcao;
         cout << endl;
-        novaOperacao(sinalIN, opcao);
+        if(opcao == 1)
+            ModuloEmSerie* modulo = new ModuloEmSerie();
+        else if(opcaoExt == 2)
+            ModuloEmParalelo* modulo = new ModuloEmParalelo();
+        else
+            ModuloRealimentado* modulo = new ModuloRealimentado();
+        sinalOUT = novaOperacao(sinalIN, modulo);
     }
     
     Grafico *grafico = new Grafico("Resultado Final", sinalOUT->getSequencia(), sinalOUT->getComprimento());
@@ -82,6 +76,10 @@ void menu(){
              << "Nome: ";
         cin >> nomeDoArquivo;
         cout << endl;
+        PersistenciaDeModulo *PDM = new PersistenciaDeModulo(nomeDoArquivo);
+        PDM->SalvarEmArquivo(modulo);
+        delete modulo;
+        delete PDM;
     }
 }
 
@@ -121,35 +119,10 @@ Sinal* novoSinal(){
     }
     Sinal *sinalOUT = new Sinal(sequencia, tamanhoMaximo);
     return sinalOUT;
-    
-    
-    // if (opcao == 1){
-    //     for (int n = 0; n < tamanhoMaximo; n++) 
-    //         sequencia[n] = 5 + 3 * cos(n * (M_PI / 8));
-    // } else if (opcao == 2){
-    //     double constante;
-    //     cout << "Qual o valor dessa constante?" << endl 
-    //          << "C = ";
-    //     cin >> constante;
-    //     cout << endl;
-    //     Sinal *sinalOUT = new Sinal(constante, tamanhoMaximo);
-    //     return sinalOUT;
-    // } else{
-    //     double inclinacao;
-    //     cout << "Qual a inclinacao dessa rampa?" << endl
-    //          << "a = ";
-    //     cin >> inclinacao;
-    //     cout << endl;
-    //     for (int n = 0; n < tamanhoMaximo; n++)
-    //         sequencia[n] = inclinacao * n;
-    // }
-    // Sinal *sinalOUT = new Sinal(sequencia, tamanhoMaximo);
-    // return sinalOUT;
 }
 
-void novaOperacao(Sinal *sinalIN, string opcaoExt) {
+Sinal* novaOperacao(Sinal *sinalIN, Modulo *modulo) {
     int opcao;
-    Sinal *sinalOUT = nullptr;
     cout << "Qual operacao voce gostaria de fazer?" << endl
          << "1) Amplificar"                         << endl
          << "2) Derivar"                            << endl
@@ -157,7 +130,8 @@ void novaOperacao(Sinal *sinalIN, string opcaoExt) {
          << "Escolha: ";
     cin >> opcao;
     cout << endl;
-
+        
+    Sinal *sinalOUT = nullptr;
     if (opcao == 1){
         double ganho;
         cout << "Qual o ganho dessa amplificacao?" << endl
@@ -165,19 +139,19 @@ void novaOperacao(Sinal *sinalIN, string opcaoExt) {
         cin >> ganho;
         cout << endl;
         Amplificador *amplificadorOperacao = new Amplificador(ganho);
-        sinalOUT = amplificadorOperacao->processar(sinalIN);
+        modulo->adicionar(amplificadorOperacao);
+        sinalOUT = modulo->processar(sinalIN);
         delete sinalIN;
-        delete amplificadorOperacao;
     } else if (opcao == 2){
         Derivador *derivadorOperacao = new Derivador();
-        sinalOUT = derivadorOperacao->processar(sinalIN); 
+        modulo->adicionar(derivadorOperacao);
+        sinalOUT = modulo->processar(sinalIN);
         delete sinalIN;
-        delete derivadorOperacao;
     } else{
         Integrador *integradorOperacao = new Integrador();
-        sinalOUT = integradorOperacao->processar(sinalIN);
+        modulo->adicionar(integradorOperacao);
+        sinalOUT = modulo->processar(sinalIN);
         delete sinalIN;
-        delete integradorOperacao;
     }
     
     cout << "O que voce quer fazer agora?"               << endl
@@ -186,12 +160,7 @@ void novaOperacao(Sinal *sinalIN, string opcaoExt) {
          << "Escolha: ";
     cin >> opcao;
     cout << endl;
-    if (opcao == 1){
-        novaOperacao(sinalOUT); //Solucao recursiva
-    } else{
-        // Grafico *grafico = new Grafico("Resultado Final", sinalOUT->getSequencia(), sinalOUT->getComprimento());
-        // grafico->plot();
-        // delete grafico;
-        // delete sinalOUT;
-    }
+    if (opcao == 1)
+        sinalOUT = novaOperacao(sinalOUT, modulo); //Solucao recursiva
+    else return sinalOUT;
 }
