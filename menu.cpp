@@ -2,8 +2,11 @@
 #include "Derivador.h"
 #include "Grafico.h"
 #include "Integrador.h"
+#include "Modulo.h"
 #include "ModuloRealimentado.h"
-#include "Piloto.h"
+#include "ModuloEmSerie.h"
+#include "ModuloEmParalelo.h"
+#include "PersistenciaDeModulo.h"
 #include "Sinal.h"
 #include "Somador.h"
 #include <cmath>
@@ -11,11 +14,11 @@
 using namespace std;
 
 Sinal* novoSinal();
-void novaOperacao(Sinal *sinalIN);
+void novaOperacao(Sinal *sinalIN, string opcaoExt);
 
 void menu(){
     /*implementacao da interface*/
-    //ATENÇÃO, EM TODAS AS PARTES DESSE CÓDIGO REAPROVEITEI A VARIÁVEL OPÇÃO PARA GUARDAR OS DIFERENTES INPUTS DO USUÁRIO
+    //ATENÇÃO, EM TODAS AS PARTES DESSE CÓDIGO REAPROVEITEI A VARIÁVEL "opcao" PARA GUARDAR OS DIFERENTES INPUTS DO USUÁRIO
     int opcao;
     Sinal *sinalIN;
     cout << "\tSimulink em C++"                      << endl
@@ -46,6 +49,11 @@ void menu(){
              << "Nome: ";
         cin >> nomeDoArquivo;
         cout << endl;
+        PersistenciaDeModulo *PDM = new PersistenciaDeModulo(nomeDoArquivo);
+        Modulo *modulo = PDM->lerDeArquivo();
+        Sinal *sinalOUT = modulo->processar(sinalIN);
+        delete sinalIN;
+        delete modulo;
     }else{
         cout << "Qual estrutura de operacoes voce deseja ter como base?" << endl
              << "1) Operacoes em serie nao realimentadas"                << endl
@@ -54,7 +62,7 @@ void menu(){
              << "Escolha: ";
         cin >> opcao;
         cout << endl;
-        novaOperacao(sinalIN);
+        novaOperacao(sinalIN, opcao);
     }
     
     Grafico *grafico = new Grafico("Resultado Final", sinalOUT->getSequencia(), sinalOUT->getComprimento());
@@ -139,7 +147,7 @@ Sinal* novoSinal(){
     // return sinalOUT;
 }
 
-void novaOperacao(Sinal *sinalIN) {
+void novaOperacao(Sinal *sinalIN, string opcaoExt) {
     int opcao;
     Sinal *sinalOUT = nullptr;
     cout << "Qual operacao voce gostaria de fazer?" << endl
