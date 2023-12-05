@@ -47,11 +47,13 @@ Modulo* PersistenciaDeModulo::lerDeArquivo(){ //falta revisar
   if(input.fail()){
       throw new invalid_argument("Erro ao abrir o arquivo");
       input.close();
+      return nullptr;
   }else{
-    Modulo* mod = new Modulo();
+    Modulo* mod;
     leituraModulo(mod, input); //função recursiva
-    return mod;
     input.close();
+    return mod;
+    
     }
   }
 
