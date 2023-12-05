@@ -30,6 +30,7 @@ void menu(){
     cout << endl;
     sinalIN = novoSinal();
     
+    Modulo *modulo;
     Sinal *sinalOUT;
     string nomeDoArquivo;
     if (opcao == 1){
@@ -38,7 +39,7 @@ void menu(){
         cin >> nomeDoArquivo;
         cout << endl;
         PersistenciaDeModulo *PDM = new PersistenciaDeModulo(nomeDoArquivo);
-        Modulo *modulo = PDM->lerDeArquivo();
+        modulo = PDM->lerDeArquivo();
         sinalOUT = modulo->processar(sinalIN);
         delete sinalIN;
         delete PDM;
@@ -50,7 +51,7 @@ void menu(){
              << "Escolha: ";
         cin >> opcao;
         cout << endl;
-        Modulo *modulo;
+        
         if(opcao == 1)
             modulo = new ModuloEmSerie(); //Upcasting eh nao problematico, pois ocorreria ao passar o argumento para novaOperacao
         else if(opcao == 2)
