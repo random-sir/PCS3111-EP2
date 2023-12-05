@@ -50,12 +50,13 @@ void menu(){
              << "Escolha: ";
         cin >> opcao;
         cout << endl;
+        Modulo *modulo;
         if(opcao == 1)
-            ModuloEmSerie* modulo = new ModuloEmSerie();
+            modulo = new ModuloEmSerie(); //Upcasting eh nao problematico, pois ocorreria ao passar o argumento para novaOperacao
         else if(opcao == 2)
-            ModuloEmParalelo* modulo = new ModuloEmParalelo();
+            modulo = new ModuloEmParalelo();
         else
-            ModuloRealimentado* modulo = new ModuloRealimentado();
+            modulo = new ModuloRealimentado();
         sinalOUT = novaOperacao(sinalIN, modulo);
     }
     
