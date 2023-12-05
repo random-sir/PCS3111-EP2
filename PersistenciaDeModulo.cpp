@@ -107,11 +107,11 @@ void leituraModulo(Modulo* modulo, ifstream& arquivo){ //terminada
     if(!arquivo.eof()) throw new logic_error("Arquivo com formatacao inesperada"); //controle de erro necessário conforme dito no enunciado do EP
     if(letraCirc == "P" || letraCirc == "S" || letraCirc == "R"){
       Modulo* moduloInterno = static_cast<Modulo*>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
-      modulo->getCircuitos()->adicionar(moduloInterno);
+      modulo->adicionar(moduloInterno);
       while(letraCirc != "f")
         leituraModulo(moduloInterno, arquivo);
     }else
-      modulo->getCircuitos()->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
+      modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
   }
 }
 
