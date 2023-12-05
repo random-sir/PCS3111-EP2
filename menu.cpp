@@ -52,7 +52,7 @@ void menu(){
         cout << endl;
         if(opcao == 1)
             ModuloEmSerie* modulo = new ModuloEmSerie();
-        else if(opcaoExt == 2)
+        else if(opcao == 2)
             ModuloEmParalelo* modulo = new ModuloEmParalelo();
         else
             ModuloRealimentado* modulo = new ModuloRealimentado();
@@ -77,7 +77,7 @@ void menu(){
         cin >> nomeDoArquivo;
         cout << endl;
         PersistenciaDeModulo *PDM = new PersistenciaDeModulo(nomeDoArquivo);
-        PDM->SalvarEmArquivo(modulo);
+        PDM->salvarEmArquivo(modulo);
         delete modulo;
         delete PDM;
     }
@@ -160,8 +160,9 @@ Sinal* novaOperacao(Sinal *sinalIN, Modulo *modulo) {
          << "Escolha: ";
     cin >> opcao;
     cout << endl;
-    if (opcao == 1)
+    if (opcao == 1){
         sinalOUT = novaOperacao(sinalOUT, modulo); //Solucao recursiva
         return sinalOUT;
+    }
     else return sinalOUT;
 }
