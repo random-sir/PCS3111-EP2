@@ -31,5 +31,9 @@
 *.out
 *.app
 
+# Files without extensions
+!*.*
+!*/
+
 # VScode files 
 **/.vscode/*
