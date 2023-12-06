@@ -165,7 +165,7 @@ Sinal* novaOperacao(Sinal *sinalIN, Modulo *modulo) {
     if (opcao == 1){
         sinalOUT = novaOperacao(sinalOUT, modulo); //Solucao recursiva
     }
-    else delete modulo; //necessario, pois modulo eh alocado dinamicamente e nao eh deletado em qualquer outro momento
+    //else delete modulo; //necessario, pois modulo eh alocado dinamicamente e nao eh deletado em qualquer outro momento
                        //Essa delecao nao afetara a recursao, pois apenas ocorre no fim da mesma
     return sinalOUT;
 }
