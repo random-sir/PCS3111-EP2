@@ -80,9 +80,9 @@ void menu(){
         cout << endl;
         PersistenciaDeModulo *PDM = new PersistenciaDeModulo(nomeDoArquivo);
         PDM->salvarEmArquivo(modulo);
-        delete modulo;
         delete PDM;
     }
+    delete modulo;
 }
 
 Sinal* novoSinal(){
