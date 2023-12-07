@@ -142,11 +142,14 @@ void leituraModulo(Modulo *modulo, ifstream &arquivo)
     bool ehModulo = (letraCirc == "P" || letraCirc == "S" || letraCirc == "R");
     if (letraCirc != "f")
     {
-      modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
-      if (ehModulo)
+
+      if (!ehModulo)
+        modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
+      else
       {
         moduloInterno = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
         leituraModulo(moduloInterno, arquivo);
+        modulo->adicionar(moduloInterno);
       }
     }
     else
