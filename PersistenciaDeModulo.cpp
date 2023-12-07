@@ -140,18 +140,15 @@ void leituraModulo(Modulo *modulo, ifstream &arquivo)
   { // enquanto arquivo.fail() nao eh false
     arquivo >> letraCirc;
     bool ehModulo = (letraCirc == "P" || letraCirc == "S" || letraCirc == "R");
-    if (letraCirc != "f")
-    {
-      if (!ehModulo)
-        modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
-      else
-      {
-        moduloInterno = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
-        leituraModulo(moduloInterno, arquivo);
-        modulo->adicionar(moduloInterno);
-      }
-    }
-    else
+    if (letraCirc == "f")
       return;
+    if (!ehModulo)
+      modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
+    else
+    {
+      moduloInterno = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
+      leituraModulo(moduloInterno, arquivo);
+      modulo->adicionar(moduloInterno);
+    }
   }
 }
