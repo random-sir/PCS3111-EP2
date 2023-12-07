@@ -36,6 +36,9 @@
 !*.*
 !*/
 
+#Text Files
+*.txt
+
 # VScode files 
 .vscode/
 **/.vscode/*
