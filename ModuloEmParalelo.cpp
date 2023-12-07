@@ -33,7 +33,6 @@ Sinal* ModuloEmParalelo::processar(Sinal* sinalIN){
     }
   }
   delete sum;
-  delete sinalSomado;
   if(!temCircSISO){
      throw new logic_error("Nao ha circuitos SISO");
      return sinalIN; //failsafe de lista sem circuitosSISO, falha nao catastroficamente
