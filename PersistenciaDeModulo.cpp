@@ -18,7 +18,7 @@ using namespace std;
 string tipoDeCircuitoSISO_STR(CircuitoSISO *circ);
 CircuitoSISO *tipoDeCircuitoSISO_CircSISO(string letraCirc, ifstream &arquivo);
 void escreverModulo(Modulo *modulo, ofstream &arquivo);
-void leituraModulo(Modulo *modulo, ifstream &arquivo, bool primeiraIteracao);
+void leituraModulo(Modulo *modulo, ifstream &arquivo);
 
 PersistenciaDeModulo::PersistenciaDeModulo(string nomeDoArquivo)
 {
@@ -60,7 +60,7 @@ Modulo *PersistenciaDeModulo::lerDeArquivo()
   else
   {
     Modulo *mod;
-    leituraModulo(mod, input,1); // função recursiva
+    leituraModulo(mod, input); // função recursiva
     input.close();
     return mod;
   }
@@ -113,6 +113,7 @@ CircuitoSISO *tipoDeCircuitoSISO_CircSISO(string letraCirc, ifstream &arquivo)
 void escreverModulo(Modulo *modulo, ofstream &arquivo)
 { // concluida, falta revisar
   // basicamente pega os circuitos da lista de circuitos interna do módulo e acha a correspondente letra utilizando a função escreverModulo
+  arquivo << tipoDeCircuitoSISO_STR(modulo) << endl;
   for (list<CircuitoSISO *>::iterator i = modulo->getCircuitos()->begin(); i != modulo->getCircuitos()->end(); i++)
   {
     string tipoDoCircuitoAtual = tipoDeCircuitoSISO_STR(*i); // evitar chamar essa funcao desnecessariamente
@@ -126,28 +127,30 @@ void escreverModulo(Modulo *modulo, ofstream &arquivo)
   arquivo << "f" << endl;
 }
 
-void leituraModulo(Modulo *modulo, ifstream &arquivo, bool primeiraIteracao)
+void leituraModulo(Modulo *modulo, ifstream &arquivo)
 { // terminada
   // cria o módulo descrito no arquivo
   string letraCirc;
   Modulo *moduloInterno;
+  bool moduloInicializado = false;
   while (arquivo)
   { // enquanto arquivo.fail() nao eh false
     arquivo >> letraCirc;
     // if(!arquivo.eof()) throw new logic_error("Arquivo com formatacao inesperada"); //controle de erro necessário conforme dito no enunciado do EP
     if (letraCirc == "P" || letraCirc == "S" || letraCirc == "R")
     {
-      if (primeiraIteracao)
-        modulo = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
-      else
+      if (moduloInicializado)
       {
-        moduloInterno = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
-        modulo->adicionar(moduloInterno);
+        leituraModulo(moduloInterno, arquivo);
       }
-      while (letraCirc != "f")
-        leituraModulo(moduloInterno, arquivo,0);
+      else
+        modulo = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
     }
-    else
+    if (letraCirc != "f" && moduloInicializado)
       modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
+    else if (letraCirc == "f")
+      return;
+    else
+      moduloInicializado = true;
   }
 }
