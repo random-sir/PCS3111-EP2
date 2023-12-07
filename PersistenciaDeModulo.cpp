@@ -136,12 +136,13 @@ void leituraModulo(Modulo *modulo, ifstream &arquivo)
   // cria o módulo descrito no arquivo
   string letraCirc;
   Modulo *moduloInterno = nullptr;
+  bool ehModulo;
   while (arquivo)
   { // enquanto arquivo.fail() nao eh false
     arquivo >> letraCirc;
-    bool ehModulo = (letraCirc == "P" || letraCirc == "S" || letraCirc == "R");
     if (letraCirc == "f")
       return;
+    ehModulo = (letraCirc == "P" || letraCirc == "S" || letraCirc == "R");
     if (!ehModulo)
       modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
     else
