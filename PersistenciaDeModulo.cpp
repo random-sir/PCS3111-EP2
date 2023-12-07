@@ -59,7 +59,11 @@ Modulo *PersistenciaDeModulo::lerDeArquivo()
   }
   else
   {
-    Modulo *mod = nullptr;
+    string letraModulo;
+    input >> letraModulo;
+    if (letraModulo != "P" && letraModulo != "S" && letraModulo != "R")
+      throw new logic_error("Arquivo com formatacao inesperada");
+    Modulo *mod = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraModulo, input));
     leituraModulo(mod, input); // função recursiva
     input.close();
     return mod;
@@ -132,31 +136,20 @@ void leituraModulo(Modulo *modulo, ifstream &arquivo)
   // cria o módulo descrito no arquivo
   string letraCirc;
   Modulo *moduloInterno = nullptr;
-  bool moduloInicializado = false;
   while (arquivo)
   { // enquanto arquivo.fail() nao eh false
     arquivo >> letraCirc;
     bool ehModulo = (letraCirc == "P" || letraCirc == "S" || letraCirc == "R");
-    if (letraCirc != "f" && moduloInicializado)
+    if (letraCirc != "f")
     {
       modulo->adicionar(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
       if (ehModulo)
+      {
+        moduloInterno = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
         leituraModulo(moduloInterno, arquivo);
-    }
-    if (!moduloInicializado)
-    {
-      if (ehModulo)
-      {
-        modulo = static_cast<Modulo *>(tipoDeCircuitoSISO_CircSISO(letraCirc, arquivo));
-        moduloInicializado = true;
-      }
-      else
-      {
-        throw new logic_error("Arquivo com formatacao inesperada"); // controle de erro necessário conforme dito no enunciado do EP
-        return;
       }
     }
-    if (letraCirc == "f")
+    else
       return;
   }
 }
