@@ -18,7 +18,6 @@ Sinal* novaOperacao(Sinal *sinalIN,  Modulo *modulo);
 
 void menu(){
     /*implementacao da interface*/
-    //ATENÇÃO, EM TODAS AS PARTES DESSE CÓDIGO REAPROVEITEI A VARIÁVEL "opcao" PARA GUARDAR OS DIFERENTES INPUTS DO USUÁRIO
     int opcao;
     Sinal *sinalIN;
     cout << "\tSimulink em C++"                      << endl
@@ -53,7 +52,7 @@ void menu(){
         cout << endl;
         
         if(opcao == 1)
-            modulo = new ModuloEmSerie(); //Upcasting eh nao problematico, pois ocorreria ao passar o argumento para novaOperacao
+            modulo = new ModuloEmSerie(); 
         else if(opcao == 2)
             modulo = new ModuloEmParalelo();
         else
@@ -165,7 +164,5 @@ Sinal* novaOperacao(Sinal *sinalIN, Modulo *modulo) {
     if (opcao == 1){
         sinalOUT = novaOperacao(sinalOUT, modulo); //Solucao recursiva
     }
-    //else delete modulo; //necessario, pois modulo eh alocado dinamicamente e nao eh deletado em qualquer outro momento
-                       //Essa delecao nao afetara a recursao, pois apenas ocorre no fim da mesma
     return sinalOUT;
 }
